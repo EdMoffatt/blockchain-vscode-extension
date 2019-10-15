@@ -37,10 +37,11 @@ import { ExtensionUtil } from '../../extension/util/ExtensionUtil';
 const should: Chai.Should = chai.should();
 chai.use(sinonChai);
 
-describe.only('AssociateWalletCommand', () => {
-    const mySandBox: sinon.SinonSandbox = sinon.createSandbox();
+describe('AssociateWalletCommand', () => {
+    let mySandBox: sinon.SinonSandbox;
 
     before(async () => {
+        mySandBox = sinon.createSandbox();
         await TestUtil.setupTests(mySandBox);
     });
 

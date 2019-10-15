@@ -82,6 +82,8 @@ describe('removeWalletCommand', () => {
         await FabricWalletRegistry.instance().add(blueWallet);
         await FabricWalletRegistry.instance().add(createdWallet);
 
+        await FabricGatewayRegistry.instance().clear();
+
         await FabricGatewayRegistry.instance().add({ name: 'gatewayA', associatedWallet: 'blueWallet' });
         await FabricGatewayRegistry.instance().add({ name: 'gatewayB', associatedWallet: 'blueWallet' });
         await FabricGatewayRegistry.instance().add({ name: 'gatewayC', associatedWallet: 'greenWallet' });
@@ -283,7 +285,7 @@ describe('removeWalletCommand', () => {
         result.associatedWallet.should.equal('');
 
         result = await FabricGatewayRegistry.instance().get('gatewayC');
-        result.associatedWallet.should.equal('');
+        result.associatedWallet.should.equal('greenWallet');
 
         logSpy.should.have.been.calledTwice;
         logSpy.getCall(0).should.have.been.calledWithExactly(LogType.INFO, undefined, `removeWallet`);
